@@ -1,0 +1,21 @@
+workerPoolSpecs:
+  machineSpec:
+    machineType: n1-highmem-2
+    acceleratorType: NVIDIA_TESLA_T4
+    acceleratorCount: 1
+  replicaCount: 1
+  containerSpec:
+    imageUri: gcr.io/tagging-project-gcp/trainer_image_tagging:latest
+    args:
+    - "--job_dir=gs://ai-training-jobs-data"
+    - "--training_dataset_path=gs://image-tagging-resources/labeled_data_train.csv"
+    - "--training_images_path=gs://image-tagging-resources/labeled_data_test.csv"
+    - "--model_version='v01'"
+    - "--TAG_COLUMN='tag'"
+    - "--RESIZE_VALUE=256"
+    - "--AUG_SIZE=128"
+    - "--FREEZE_EPOCHS=2"
+    - "--BASE_LR=0.002"
+    - "--EPOCHS=20"
+    - "--ARCH_RESNET='resnet50'"
+    - "--METHOD=squish"
